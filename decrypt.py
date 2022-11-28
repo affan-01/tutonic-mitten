@@ -1,20 +1,20 @@
-#importing the library
 from cryptography.fernet import Fernet
 
-#opening the file which has the key
-with open('filekey','rb') as filekey:
-    key = filekey.read()
+def decrypt_file(key):
+    #with open('filekey','rb') as filekey:
+       # key = filekey.read()
 
-#using the key
-f = Fernet(key)
+    f = Fernet(key)
 
-#reading the ciphertext
-with open('ciphertext','rb') as ciphertext:
-    text = ciphertext.read()
+    #open encrypted text file and store it in a variable
+    with open('static/ciphertext','rb') as ciphertext:
+        text = ciphertext.read()
 
-#decrypting the ciphertext
-decrypted_text = f.decrypt(text)
+    #decrypt the text
+    decrypted_text = f.decrypt(text)
 
-#writing the decrypted text back into a file
-with open('original_text','wb') as original_text:
-    original_text.write(decrypted_text)
+    #write the decrypted text to the file
+    with open('static/original_text','wb') as original_text:
+        original_text.write(decrypted_text)
+    
+    return decrypted_text
