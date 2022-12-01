@@ -18,8 +18,10 @@ def upload():
         filename = secure_filename(f.filename)
         f.save(app.config['UPLOAD_FOLDER'] + filename)
         encrypt_file(f.filename)
-        print(f.filename)
-        return render_template('acknowledgment.html')
+        with open('static/filekey','r') as filekey:
+            key = filekey.read()
+        return render_template('acknowledgment.html' , key = key)
+
 
 @app.route('/download' , methods = ['GET' , 'POST'])
 def download():
